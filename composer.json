@@ -16,6 +16,10 @@
     ],
     "require": {
         "composer/installers": "^2.0",
+        "drupal/adaptivetheme": "^5.4",
+        "drupal/admin_toolbar": "^3.5",
+        "drupal/at_theme": "^2.0",
+        "drupal/bootstrap": "^3.32",
         "drupal/core-composer-scaffold": "^10.0",
         "drupal/core-project-message": "^10.0",
         "drupal/core-recommended": "^10.0",
