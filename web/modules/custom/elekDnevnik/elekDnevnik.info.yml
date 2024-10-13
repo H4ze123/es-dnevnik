@@ -1,0 +1,6 @@
+name: elekDnevnik Module
+description: Creates a page showing "Hello World".
+package: Custom
+
+type: module
+core_version_requirement: ^9.4 || ^10
