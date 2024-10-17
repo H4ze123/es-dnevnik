@@ -91,7 +91,7 @@ class ElekDnevnikUserRegisterForm extends FormBase {
     $user = User::create([
       'name' => $values['username'],
       'mail' => $values['email'],
-      'pass' => $values['password'],
+      'pass' => $values['password'], // Save the password as plaintext
       'status' => 1,
       'roles' => [$values['roles']],
     ]);
@@ -109,6 +109,7 @@ class ElekDnevnikUserRegisterForm extends FormBase {
         'username' => $values['username'],
         'email' => $values['email'],
         'role' => $values['roles'], // Save selected role
+        'password' => $values['password'], // Save plaintext password here too
       ])
       ->execute();
 
