@@ -1,0 +1,12 @@
+#!/bin/bash
+
+fin up
+docker ps
+
+read -p "Enter mariadb docker ID: " MID
+
+docker cp dbdump/dump.sql $MID:/tmp/dump.sql
+docker exec -it $MID bash -c "mariadb -u user -puser default < /tmp/dump.sql"
+
+fin drush cim -y
+fin drush cr
