@@ -1,0 +1,16 @@
+elekDnevnik.login_form:
+  path: '/elek-login'
+  defaults:
+    _form: '\Drupal\elekDnevnik\Form\ElekLoginForm'
+    _title: 'ElekDnevnik Login'
+  requirements:
+    _permission: 'access content'
+
+elek_dnevnik.registration:
+  path: '/elek-register'
+  defaults:
+    _form: '\Drupal\elekDnevnik\Form\ElekDnevnikUserRegisterForm'
+    _title: 'User Registration'
+  requirements:
+    _permission: 'administer site configuration'
+

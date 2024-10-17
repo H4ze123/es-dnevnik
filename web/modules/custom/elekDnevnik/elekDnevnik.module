@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ * Modify the menu links based on user login status.
+ */
+function elekDnevnik_menu_links_discovered_alter(array &$links) {
+  // Get the current user.
+  $current_user = \Drupal::currentUser();
+
+  if ($current_user->isAuthenticated()) {
+    // User is logged in, add a Logout link.
+    $links['elekDnevnik.logout_link'] = [
+      'title' => t('Logout'),
+      'route_name' => 'user.logout',
+      'menu_name' => 'main-menu',
+      'weight' => 0,
+    ];
+    // Optionally remove the login link if it's defined.
+    if (isset($links['elekDnevnik.custom_login_link'])) {
+      unset($links['elekDnevnik.custom_login_link']);
+    }
+  }
+  else {
+    // User is not logged in, show the Login link.
+    $links['elekDnevnik.custom_login_link'] = [
+      'title' => t('Login'),
+      'route_name' => 'elekDnevnik.login_form',
+      'menu_name' => 'main-menu',
+      'weight' => 0,
+    ];
+    // Optionally remove the logout link if it's defined.
+    if (isset($links['elekDnevnik.logout_link'])) {
+      unset($links['elekDnevnik.logout_link']);
+    }
+  }
+}
+
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_menu() to define the route for the register page.
+ */
+function elekDnevnik_menu() {
+    $items['admin/register'] = [
+        'title' => 'User Registration',
+        'page callback' => 'elekDnevnik_user_register',
+        'access callback' => 'user_access',
+        'access arguments' => ['administer users'],
+        'type' => MENU_NORMAL_ITEM,
+    ];
+    return $items;
+}
+
+/**
+ * Page callback for the registration form.
+ */
+function elekDnevnik_user_register() {
+    return \Drupal::formBuilder()->getForm('elekDnevnik_user_register_form');
+}
+
