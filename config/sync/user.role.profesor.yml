@@ -1,0 +1,9 @@
+uuid: f9e94a42-c5fd-4900-a0e4-50d91bd37b1a
+langcode: en
+status: true
+dependencies: {  }
+id: profesor
+label: Profesor
+weight: 10
+is_admin: null
+permissions: {  }

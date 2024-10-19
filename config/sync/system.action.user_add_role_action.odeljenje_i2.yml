@@ -1,0 +1,14 @@
+uuid: 7d37194a-3818-4c5c-8f06-8dca76b7bfe3
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.odeljenje_i2
+  module:
+    - user
+id: user_add_role_action.odeljenje_i2
+label: 'Add the Odeljenje I2 role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: odeljenje_i2

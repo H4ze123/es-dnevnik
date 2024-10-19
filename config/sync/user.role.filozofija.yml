@@ -1,0 +1,9 @@
+uuid: 6621e96d-83f7-418a-bece-3e67a8b38cbf
+langcode: en
+status: true
+dependencies: {  }
+id: filozofija
+label: Filozofija
+weight: 16
+is_admin: null
+permissions: {  }

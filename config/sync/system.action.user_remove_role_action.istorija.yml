@@ -1,0 +1,14 @@
+uuid: bd258c8b-61a9-42ee-abd0-31280bca5793
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.istorija
+  module:
+    - user
+id: user_remove_role_action.istorija
+label: 'Remove the Istorija role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: istorija

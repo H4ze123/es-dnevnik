@@ -1,0 +1,14 @@
+uuid: 19907f83-8d2a-41e9-9fe3-6c929e717656
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.odeljenje_i1
+  module:
+    - user
+id: user_remove_role_action.odeljenje_i1
+label: 'Remove the Odeljenje I1 role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: odeljenje_i1

@@ -1,0 +1,14 @@
+uuid: 837d6f21-d741-4faa-8f4e-5d3acebbec19
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.ucenik
+  module:
+    - user
+id: user_remove_role_action.ucenik
+label: 'Remove the Ucenik role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: ucenik

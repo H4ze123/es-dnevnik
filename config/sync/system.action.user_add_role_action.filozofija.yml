@@ -1,0 +1,14 @@
+uuid: 0922a95f-2ae5-4739-a407-b483848e50c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.filozofija
+  module:
+    - user
+id: user_add_role_action.filozofija
+label: 'Add the Filozofija role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: filozofija

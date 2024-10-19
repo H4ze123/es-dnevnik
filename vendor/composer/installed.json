@@ -2066,6 +2066,54 @@
             "install-path": "../../web/modules/contrib/menu_item_role_access"
         },
         {
+            "name": "drupal/menu_link_by_role",
+            "version": "dev-1.0.x",
+            "version_normalized": "dev-1.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/menu_link_by_role.git",
+                "reference": "6e2b943c367f182315619fd602d11f01302594ff"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
+                "drupal": {
+                    "version": "1.0.x-dev",
+                    "datestamp": "1686900894",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "installation-source": "source",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "vishakraman",
+                    "homepage": "https://www.drupal.org/user/3602197"
+                },
+                {
+                    "name": "yashaswini",
+                    "homepage": "https://www.drupal.org/user/3602445"
+                }
+            ],
+            "description": "A custom module to set the menu link by roles.",
+            "homepage": "https://www.drupal.org/project/menu_link_by_role",
+            "support": {
+                "source": "https://git.drupalcode.org/project/menu_link_by_role"
+            },
+            "install-path": "../../web/modules/contrib/menu_link_by_role"
+        },
+        {
             "name": "drush/drush",
             "version": "11.6.0",
             "version_normalized": "11.6.0.0",

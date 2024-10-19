@@ -1,0 +1,14 @@
+uuid: 1f3b7f28-2869-4d9d-b0c2-16669069f725
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.odeljenje_i2
+  module:
+    - user
+id: user_remove_role_action.odeljenje_i2
+label: 'Remove the Odeljenje I2 role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: odeljenje_i2

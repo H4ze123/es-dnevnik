@@ -1,0 +1,14 @@
+uuid: 356107b4-afc1-4a7d-a571-34e57213f7fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.matematika
+  module:
+    - user
+id: user_add_role_action.matematika
+label: 'Add the Matematika role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: matematika

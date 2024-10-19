@@ -1,0 +1,14 @@
+uuid: d2638a16-9c01-4b92-a0cb-e73ed1456ad7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.programiranje_i_programski_jezici
+  module:
+    - user
+id: user_add_role_action.programiranje_i_programski_jezici
+label: 'Add the Programiranje i programski jezici role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: programiranje_i_programski_jezici

@@ -1,0 +1,14 @@
+uuid: f891574d-f560-48e7-9272-18131195258f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.matematika
+  module:
+    - user
+id: user_remove_role_action.matematika
+label: 'Remove the Matematika role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: matematika

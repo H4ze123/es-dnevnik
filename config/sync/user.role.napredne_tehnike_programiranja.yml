@@ -1,0 +1,9 @@
+uuid: 12345d3e-3896-45ce-b8d8-d316485d1367
+langcode: en
+status: true
+dependencies: {  }
+id: napredne_tehnike_programiranja
+label: 'Napredne tehnike programiranja'
+weight: 14
+is_admin: null
+permissions: {  }

@@ -1,0 +1,14 @@
+uuid: fb0410d1-1c08-4a12-8785-22fed880ec66
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.napredne_tehnike_programiranja
+  module:
+    - user
+id: user_remove_role_action.napredne_tehnike_programiranja
+label: 'Remove the Napredne tehnike programiranja role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: napredne_tehnike_programiranja

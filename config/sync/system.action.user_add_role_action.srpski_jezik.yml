@@ -1,0 +1,14 @@
+uuid: a6dde2ad-e0ea-4c8a-a349-b6e3ca1783e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.srpski_jezik
+  module:
+    - user
+id: user_add_role_action.srpski_jezik
+label: 'Add the Srpski jezik role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: srpski_jezik

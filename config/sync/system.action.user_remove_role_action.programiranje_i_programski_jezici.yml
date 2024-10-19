@@ -1,0 +1,14 @@
+uuid: 58f2aaaa-7591-4259-9f75-34f61a75cd8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.programiranje_i_programski_jezici
+  module:
+    - user
+id: user_remove_role_action.programiranje_i_programski_jezici
+label: 'Remove the Programiranje i programski jezici role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: programiranje_i_programski_jezici

@@ -1,0 +1,14 @@
+uuid: 32b80634-3440-4ec7-aab9-9d5013ff884e
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.odeljenje_iv3
+  module:
+    - user
+id: user_remove_role_action.odeljenje_iv3
+label: 'Remove the Odeljenje IV3 role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: odeljenje_iv3

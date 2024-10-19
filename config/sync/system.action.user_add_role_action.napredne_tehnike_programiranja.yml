@@ -1,0 +1,14 @@
+uuid: 88d21ed2-565c-48ae-b6de-6830e2f83416
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.napredne_tehnike_programiranja
+  module:
+    - user
+id: user_add_role_action.napredne_tehnike_programiranja
+label: 'Add the Napredne tehnike programiranja role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: napredne_tehnike_programiranja

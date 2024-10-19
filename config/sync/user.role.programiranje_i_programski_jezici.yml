@@ -1,0 +1,9 @@
+uuid: 74fff253-ffcf-4300-a670-076f4f56f1e4
+langcode: en
+status: true
+dependencies: {  }
+id: programiranje_i_programski_jezici
+label: 'Programiranje i programski jezici'
+weight: 15
+is_admin: null
+permissions: {  }

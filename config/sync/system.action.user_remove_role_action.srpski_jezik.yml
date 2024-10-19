@@ -1,0 +1,14 @@
+uuid: f6348b56-d60e-4a17-ad0b-3adc93e99e64
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.srpski_jezik
+  module:
+    - user
+id: user_remove_role_action.srpski_jezik
+label: 'Remove the Srpski jezik role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: srpski_jezik

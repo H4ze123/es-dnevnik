@@ -1,0 +1,9 @@
+uuid: 67816af7-66b8-44aa-83fc-22ffb83aca6a
+langcode: en
+status: true
+dependencies: {  }
+id: odeljenje_i3
+label: 'Odeljenje I3'
+weight: 6
+is_admin: null
+permissions: {  }

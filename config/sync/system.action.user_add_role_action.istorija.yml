@@ -1,0 +1,14 @@
+uuid: 9cb44e80-f499-4562-bd4a-903e70c2289c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.istorija
+  module:
+    - user
+id: user_add_role_action.istorija
+label: 'Add the Istorija role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: istorija

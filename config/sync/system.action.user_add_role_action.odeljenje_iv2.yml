@@ -1,0 +1,14 @@
+uuid: 1aaba58d-cb10-4521-82a2-0e7b9a2371ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.odeljenje_iv2
+  module:
+    - user
+id: user_add_role_action.odeljenje_iv2
+label: 'Add the Odeljenje IV2 role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: odeljenje_iv2

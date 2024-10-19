@@ -19,7 +19,6 @@ class ElekDnevnikUserRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Registration form fields
     $form['first_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('First Name'),
@@ -50,7 +49,6 @@ class ElekDnevnikUserRegisterForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    // Load existing roles for the combobox
     $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
     $role_options = [];
     foreach ($roles as $role) {
@@ -61,6 +59,7 @@ class ElekDnevnikUserRegisterForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Role'),
       '#options' => $role_options,
+      '#multiple' => TRUE,
       '#required' => TRUE,
     ];
 
@@ -78,7 +77,6 @@ class ElekDnevnikUserRegisterForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
-    // Check for existing user by email.
     $existing_user = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $values['email']]);
 
     if (!empty($existing_user)) {
@@ -87,19 +85,19 @@ class ElekDnevnikUserRegisterForm extends FormBase {
       return;
     }
 
-    // Create a new user entity.
     $user = User::create([
       'name' => $values['username'],
       'mail' => $values['email'],
       'pass' => $values['password'], // Save the password as plaintext
       'status' => 1,
-      'roles' => [$values['roles']],
     ]);
 
-    // Save user to the database.
+    foreach ($values['roles'] as $role_id) {
+      $user->addRole($role_id);
+    }
+
     $user->save();
 
-    // Prepare the data for the new registration table.
     $connection = \Drupal::database();
 
     $result = $connection->insert('user_registration')
@@ -108,12 +106,11 @@ class ElekDnevnikUserRegisterForm extends FormBase {
         'last_name' => $values['last_name'],
         'username' => $values['username'],
         'email' => $values['email'],
-        'role' => $values['roles'], // Save selected role
-        'password' => $values['password'], // Save plaintext password here too
+        'role' => implode(',', $values['roles']),
+        'password' => $values['password'],
       ])
       ->execute();
 
-    // Log insertion result.
     if ($result) {
       \Drupal::logger('elekDnevnik')->info('User registration data saved for: @username', ['@username' => $values['username']]);
       \Drupal::messenger()->addStatus($this->t('Registration successful.'));
@@ -122,4 +119,5 @@ class ElekDnevnikUserRegisterForm extends FormBase {
       \Drupal::messenger()->addError($this->t('Registration failed, please try again.'));
     }
   }
+
 }

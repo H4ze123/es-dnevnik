@@ -1,0 +1,9 @@
+uuid: a81b7241-c993-412a-970d-65403427e5a0
+langcode: en
+status: true
+dependencies: {  }
+id: istorija
+label: Istorija
+weight: 12
+is_admin: null
+permissions: {  }

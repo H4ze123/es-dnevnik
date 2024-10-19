@@ -1,0 +1,9 @@
+uuid: 31c8a4ed-c80d-47ef-ae53-c3542b71924e
+langcode: en
+status: true
+dependencies: {  }
+id: srpski_jezik
+label: 'Srpski jezik'
+weight: 13
+is_admin: null
+permissions: {  }

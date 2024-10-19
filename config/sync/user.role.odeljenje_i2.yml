@@ -1,0 +1,9 @@
+uuid: 11a01c01-9dd4-41a3-aa6f-361961177d3c
+langcode: en
+status: true
+dependencies: {  }
+id: odeljenje_i2
+label: 'Odeljenje I2'
+weight: 5
+is_admin: null
+permissions: {  }

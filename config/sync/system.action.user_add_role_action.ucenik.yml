@@ -1,0 +1,14 @@
+uuid: 4c6a9ca4-df98-4b82-8d73-cd4478b596bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.ucenik
+  module:
+    - user
+id: user_add_role_action.ucenik
+label: 'Add the Ucenik role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: ucenik

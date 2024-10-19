@@ -48,19 +48,16 @@ class ElekLoginForm extends FormBase {
     $username = $form_state->getValue('username');
     $password = $form_state->getValue('password');
 
-    // Load user by username.
     $user = user_load_by_name($username);
 
     if ($user) {
-      // Check if the password is valid.
       $auth = \Drupal::service('user.auth');
       if ($auth->authenticate($username, $password)) {
-        // Log the user in.
         user_login_finalize($user);
         $this->messenger()->addStatus($this->t('Login successful.'));
 
         // Redirect after login
-        $form_state->setRedirect('<front>');  // Redirect to the front page or any desired page.
+        $form_state->setRedirect('<front>');  
       }
       else {
         $this->messenger()->addError($this->t('Invalid password.'));
