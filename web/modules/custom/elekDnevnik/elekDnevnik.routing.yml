@@ -14,3 +14,12 @@ elek_dnevnik.registration:
   requirements:
     _permission: 'administer site configuration'
 
+elekDnevnik.class_entry:
+  path: '/elek-upisivanje'
+  defaults:
+    _form: '\Drupal\elekDnevnik\Form\ElekClassEntryForm'
+    _title: 'Class Entry'
+  requirements:
+    _role: 'profesor' 
+
+

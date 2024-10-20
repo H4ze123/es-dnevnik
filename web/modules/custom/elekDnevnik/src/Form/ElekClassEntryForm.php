@@ -1,0 +1,1 @@
+#zapoceto nije radilo, sredice se mozda u toku dana mozda nikad videcemo

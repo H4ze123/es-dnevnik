@@ -61,3 +61,23 @@ function elekDnevnik_user_register() {
     return \Drupal::formBuilder()->getForm('elekDnevnik_user_register_form');
 }
 
+
+function elekDnevnik_load_professors_subjects() {
+  $query = \Drupal::database()->select('user_registration', 'u')
+    ->fields('u', ['id', 'first_name', 'last_name', 'role'])
+    ->condition('u.role', 'profesor%', 'LIKE');  // Assuming role column holds roles like 'profesor,subject'
+  $result = $query->execute();
+
+  $options = [];
+  foreach ($result as $record) {
+    // Assuming role is stored in 'profesor,subject' format.
+    list($role, $subject) = explode(',', $record->role, 2);
+    
+    if ($role === 'profesor' && isset($subject)) {
+      $teacher_name = $record->first_name . ' ' . $record->last_name;
+      $options[$record->id] = $teacher_name . ' (' . $subject . ')';
+    }
+  }
+  
+  return $options;
+}
