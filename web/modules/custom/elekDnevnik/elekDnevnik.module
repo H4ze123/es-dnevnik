@@ -5,7 +5,6 @@
  * Modify the menu links based on user login status.
  */
 function elekDnevnik_menu_links_discovered_alter(array &$links) {
-  // Get the current user.
   $current_user = \Drupal::currentUser();
 
   if ($current_user->isAuthenticated()) {
@@ -16,7 +15,6 @@ function elekDnevnik_menu_links_discovered_alter(array &$links) {
       'menu_name' => 'main-menu',
       'weight' => 0,
     ];
-    // Optionally remove the login link if it's defined.
     if (isset($links['elekDnevnik.custom_login_link'])) {
       unset($links['elekDnevnik.custom_login_link']);
     }
@@ -29,7 +27,6 @@ function elekDnevnik_menu_links_discovered_alter(array &$links) {
       'menu_name' => 'main-menu',
       'weight' => 0,
     ];
-    // Optionally remove the logout link if it's defined.
     if (isset($links['elekDnevnik.logout_link'])) {
       unset($links['elekDnevnik.logout_link']);
     }
@@ -70,7 +67,6 @@ function elekDnevnik_load_professors_subjects() {
 
   $options = [];
   foreach ($result as $record) {
-    // Assuming role is stored in 'profesor,subject' format.
     list($role, $subject) = explode(',', $record->role, 2);
     
     if ($role === 'profesor' && isset($subject)) {
@@ -80,4 +76,26 @@ function elekDnevnik_load_professors_subjects() {
   }
   
   return $options;
+}
+
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+
+/**
+ * Custom access callback to restrict access to the login page.
+ */
+function elekDnevnik_login_access(AccountInterface $account) {
+  return $account->isAnonymous() ? AccessResult::allowed() : AccessResult::forbidden();
+}
+
+
+/**
+ * Custom access callback to restrict access to the class entry page.
+ */
+function elekDnevnik_class_entry_access(AccountInterface $account) {
+  if (in_array('profesor', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  return AccessResult::forbidden();
 }

@@ -4,7 +4,7 @@ elekDnevnik.login_form:
     _form: '\Drupal\elekDnevnik\Form\ElekLoginForm'
     _title: 'ElekDnevnik Login'
   requirements:
-    _permission: 'access content'
+    _custom_access: 'elekDnevnik_login_access'  
 
 elek_dnevnik.registration:
   path: '/elek-register'
@@ -14,12 +14,13 @@ elek_dnevnik.registration:
   requirements:
     _permission: 'administer site configuration'
 
-elekDnevnik.class_entry:
-  path: '/elek-upisivanje'
+elek_dnevnik.class_entry_form:
+  path: '/upisivanje-casova'
   defaults:
     _form: '\Drupal\elekDnevnik\Form\ElekClassEntryForm'
-    _title: 'Class Entry'
+    _title: 'Upisivanje časova'
   requirements:
-    _role: 'profesor' 
+    _custom_access: 'elekDnevnik_class_entry_access'
+
 
 
