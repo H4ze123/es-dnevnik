@@ -97,5 +97,8 @@ function elekDnevnik_class_entry_access(AccountInterface $account) {
   if (in_array('profesor', $account->getRoles())) {
     return AccessResult::allowed();
   }
+  else if (in_array('administrator', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
   return AccessResult::forbidden();
 }
