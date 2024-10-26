@@ -22,5 +22,14 @@ elek_dnevnik.class_entry_form:
   requirements:
     _custom_access: 'elekDnevnik_class_entry_access'
 
+elek_dnevnik.grade_entry_form:
+  path: '/upisivanje-ocena'
+  defaults:
+    _form: '\Drupal\elekDnevnik\Form\ElekGradeEntryForm'
+    _title: 'Upisivanje ocena'
+  requirements:
+    _custom_access: 'elekDnevnik_grade_entry_access'
+
+
 
 

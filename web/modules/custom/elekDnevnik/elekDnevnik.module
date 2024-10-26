@@ -102,3 +102,16 @@ function elekDnevnik_class_entry_access(AccountInterface $account) {
   }
   return AccessResult::forbidden();
 }
+
+/**
+ * Custom access callback to restrict access to the grade entry page.
+ */
+function elekDnevnik_grade_entry_access(AccountInterface $account) {
+  if (in_array('profesor', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  elseif (in_array('administrator', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  return AccessResult::forbidden();
+}
