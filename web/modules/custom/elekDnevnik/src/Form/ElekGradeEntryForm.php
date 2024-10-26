@@ -5,8 +5,6 @@ namespace Drupal\elekDnevnik\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Database;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\ReplaceCommand;
 
 class ElekGradeEntryForm extends FormBase {
 
@@ -16,6 +14,7 @@ class ElekGradeEntryForm extends FormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
     $connection = \Drupal::database();
+    $current_user = \Drupal::currentUser();
 
     $form['datum_upisa'] = [
       '#type' => 'date',
@@ -30,10 +29,8 @@ class ElekGradeEntryForm extends FormBase {
       '#options' => [
         'I1' => t('I1'),
         'I2' => t('I2'),
-        'I3' => t('I3'),
         'IV1' => t('IV1'),
         'IV2' => t('IV2'),
-        'IV3' => t('IV3'),
       ],
       '#required' => TRUE,
       '#ajax' => [
@@ -42,16 +39,26 @@ class ElekGradeEntryForm extends FormBase {
       ],
     ];
 
+    $user_role_data = $connection->query("SELECT role FROM {user_registration} WHERE username = :username", [
+      ':username' => $current_user->getAccountName(),
+    ])->fetchField();
+    $roles = explode(',', $user_role_data);
+
     $form['naziv_predmeta'] = [
       '#type' => 'select',
       '#title' => t('Naziv predmeta'),
-      '#options' => [
-        'matematika' => t('Matematika'),
-        'srpski_jezik' => t('Srpski jezik'),
-        'istorija' => t('Istorija'),
-      ],
+      '#options' => [],
       '#required' => TRUE,
     ];
+
+    if (in_array('profesor', $roles)) {
+      foreach ($roles as $role) {
+        if (strpos($role, 'profesor') === false) {
+          $formatted_subject = ucwords(str_replace('_', ' ', $role));
+          $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
+        }
+      }
+    }
 
     $form['tip_ocene'] = [
       '#type' => 'select',
@@ -83,6 +90,7 @@ class ElekGradeEntryForm extends FormBase {
         $form['students_container']['ucenici'][$student->id]['grade'] = [
           '#type' => 'select',
           '#options' => [1 => '1', 2 => '2', 3 => '3', 4 => '4', 5 => '5'],
+          '#empty_option' => t('- Select Grade -'),
         ];
       }
 
@@ -119,21 +127,25 @@ class ElekGradeEntryForm extends FormBase {
     $naziv_predmeta = $form_state->getValue('naziv_predmeta');
     $tip_ocene = $form_state->getValue('tip_ocene');
 
-    foreach ($form_state->getValue(['students_container', 'ucenici']) as $student_id => $grade) {
-      if (!empty($grade)) {
-        $connection->insert('student_grades')
-          ->fields([
-            'datum_upisa' => $datum_upisa,
-            'odeljenje' => $odeljenje,
-            'naziv_predmeta' => $naziv_predmeta,
-            'tip_ocene' => $tip_ocene,
-            'student_id' => $student_id,
-            'ocena' => $grade,
-          ])
-          ->execute();
+    $students = $form_state->getValue(['students_container', 'ucenici']);
+    if (is_array($students)) {
+      foreach ($students as $student_id => $grade) {
+        if (!empty($grade)) {
+          $connection->insert('student_grades')
+            ->fields([
+              'datum_upisa' => $datum_upisa,
+              'odeljenje' => $odeljenje,
+              'naziv_predmeta' => $naziv_predmeta,
+              'tip_ocene' => $tip_ocene,
+              'student_id' => $student_id,
+              'ocena' => $grade,
+            ])
+            ->execute();
+        }
       }
+      \Drupal::messenger()->addMessage(t('Ocene su uspešno sačuvane.'));
+    } else {
+      \Drupal::messenger()->addMessage(t('Nema učenika za unos ocena.'), 'warning');
     }
-
-    \Drupal::messenger()->addMessage(t('Ocene su uspešno sačuvane.'));
   }
 }
