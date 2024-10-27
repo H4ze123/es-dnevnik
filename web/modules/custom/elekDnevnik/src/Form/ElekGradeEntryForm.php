@@ -126,26 +126,34 @@ class ElekGradeEntryForm extends FormBase {
     $odeljenje = $form_state->getValue('odeljenje');
     $naziv_predmeta = $form_state->getValue('naziv_predmeta');
     $tip_ocene = $form_state->getValue('tip_ocene');
-
-    $students = $form_state->getValue(['students_container', 'ucenici']);
-    if (is_array($students)) {
-      foreach ($students as $student_id => $grade) {
-        if (!empty($grade)) {
-          $connection->insert('student_grades')
-            ->fields([
-              'datum_upisa' => $datum_upisa,
-              'odeljenje' => $odeljenje,
-              'naziv_predmeta' => $naziv_predmeta,
-              'tip_ocene' => $tip_ocene,
-              'student_id' => $student_id,
-              'ocena' => $grade,
-            ])
-            ->execute();
-        }
+    
+    $students_grades = $form_state->getValue(['students_container', 'ucenici']);
+  
+    $no_grades_entered = TRUE;
+  
+    foreach ($students_grades as $student_id => $data) {
+      $grade = $data['grade'];
+      
+      if (!empty($grade)) {
+        $no_grades_entered = FALSE;
+        
+        $connection->insert('student_grades')
+          ->fields([
+            'datum_upisa' => $datum_upisa,
+            'odeljenje' => $odeljenje,
+            'naziv_predmeta' => $naziv_predmeta,
+            'tip_ocene' => $tip_ocene,
+            'student_id' => $student_id,
+            'ocena' => $grade,
+          ])
+          ->execute();
       }
-      \Drupal::messenger()->addMessage(t('Ocene su uspešno sačuvane.'));
-    } else {
+    }
+  
+    if ($no_grades_entered) {
       \Drupal::messenger()->addMessage(t('Nema učenika za unos ocena.'), 'warning');
+    } else {
+      \Drupal::messenger()->addMessage(t('Ocene su uspešno sačuvane.'));
     }
   }
-}
+}   
