@@ -127,10 +127,12 @@ class ElekGradeEntryForm extends FormBase {
     $naziv_predmeta = $form_state->getValue('naziv_predmeta');
     $tip_ocene = $form_state->getValue('tip_ocene');
     
-    $students_grades = $form_state->getValue( 'ucenici']);
+    $students_grades = $form_state->getValue( 'ucenici');
     $test = $form_state->getValues();
-    var_dump($test);
-    die('End of test.');
+
+    // Ovo je za debugovanje. Neka ostane.
+    // var_dump($test);
+    // die('End of test.');
     
     if (is_array($students_grades)) {
       $grades_entered = FALSE;

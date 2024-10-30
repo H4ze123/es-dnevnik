@@ -58,8 +58,8 @@ class ElekClassEntryForm extends FormBase {
       '#options' => [],
       '#required' => TRUE,
       '#ajax' => [
-        'callback' => '::updateTotalClasses',
-        'wrapper' => 'total-classes-container',
+        'callback' => '::updateCombinedContainer',
+        'wrapper' => 'combined-container',
       ],
     ];
 
@@ -85,47 +85,46 @@ class ElekClassEntryForm extends FormBase {
       ],
       '#required' => TRUE,
       '#ajax' => [
-        'callback' => '::updateTotalClasses',
-        'wrapper' => 'total-classes-container',
+        'callback' => '::updateCombinedContainer',
+        'wrapper' => 'combined-container', 
       ],
     ];
-
-    $form['students_container'] = [
+    
+    $form['combined_container'] = [
       '#type' => 'container',
-      '#attributes' => ['id' => 'students-container'],
+      '#attributes' => ['id' => 'combined-container'],
     ];
+    
+    $total_classes = $this->getTotalClassesForSubjectAndClass(
+      $form_state->getValue('naziv_predmeta'), 
+      $form_state->getValue('odeljenje')
+    );
 
-    if ($form_state->getValue('odeljenje')) {
-      $selected_class = $form_state->getValue('odeljenje');
-      $students = $this->loadStudentsByClass($selected_class);
-
-      if ($students) {
-        $form['students_container']['ucenici'] = [
-          '#type' => 'checkboxes',
-          '#title' => t('Učenici'),
-          '#options' => array_reduce($students, function ($carry, $student) {
-            $carry[$student->id] = $student->first_name . ' ' . $student->last_name;
-            return $carry;
-          }, []),
-        ];
-      } else {
-        $form['students_container']['ucenici'] = [
-          '#markup' => t('Nema učenika u odeljenju @odeljenje.', ['@odeljenje' => $selected_class]),
-        ];
-      }
-    }
-
-    $total_classes = $this->getTotalClassesForSubjectAndClass($form_state->getValue('naziv_predmeta'), $form_state->getValue('odeljenje'));
-
-    $form['ukupno_casova'] = [
+    $form['combined_container']['ukupno_casova'] = [
       '#type' => 'number',
       '#title' => t('Ukupno časova'),
       '#default_value' => $total_classes,
       '#required' => TRUE,
       '#disabled' => TRUE,
-      '#prefix' => '<div id="total-classes-container">',
-      '#suffix' => '</div>',
     ];
+
+    $selected_class = $form_state->getValue('odeljenje');
+    $students = $this->loadStudentsByClass($selected_class);
+    
+    if (!empty($students)) {
+      $form['combined_container']['ucenici'] = [
+        '#type' => 'checkboxes',
+        '#title' => t('Učenici'),
+        '#options' => array_reduce($students, function ($carry, $student) {
+          $carry[$student->id] = $student->first_name . ' ' . $student->last_name;
+          return $carry;
+        }, []),
+      ];
+    } else {
+      $form['combined_container']['ucenici'] = [
+        '#markup' => t('Nema učenika u odeljenju @odeljenje.', ['@odeljenje' => $selected_class]),
+      ];
+    }
 
     $form['tema'] = [
       '#type' => 'textarea',
@@ -163,10 +162,6 @@ class ElekClassEntryForm extends FormBase {
   }
 
   protected function getTotalClassesForSubjectAndClass($subject, $class) {
-    if (!$subject || !$class) {
-      return 0;
-    }
-    
     $connection = \Drupal::database();
     return $connection->query("SELECT COUNT(*) FROM {class_entries} WHERE naziv_predmeta = :subject AND odeljenje = :class", [
       ':subject' => $subject,
@@ -217,15 +212,7 @@ class ElekClassEntryForm extends FormBase {
     return $form;
   }
 
-  public function updateTotalClasses(array &$form, FormStateInterface $form_state) {
-    $subject = $form_state->getValue('naziv_predmeta');
-    $class = $form_state->getValue('odeljenje');
-    $form['ukupno_casova']['#default_value'] = $this->getTotalClassesForSubjectAndClass($subject, $class);
-  
-    return $form['ukupno_casova'];
-  }
-
-  public function updateStudents(array &$form, FormStateInterface $form_state) {
-    return $form['students_container'];
+  public function updateCombinedContainer(array &$form, FormStateInterface $form_state) {
+    return $form['combined_container'];
   }
 }
