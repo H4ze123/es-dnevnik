@@ -30,6 +30,13 @@ elek_dnevnik.grade_entry_form:
   requirements:
     _custom_access: 'elekDnevnik_grade_entry_access'
 
+elek_dnevnik.student_grades_controller:
+  path: '/ucenici-ocene'
+  defaults:
+    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentGradesController::gradesPage'
+    _title: 'Izvestaj za ucenika/cu'
+  requirements:
+    _custom_access: 'elekDnevnik_student_grades_access'
 
 
 

@@ -1,0 +1,20 @@
+<h2>{{ 'Izveštaj za učenika/cu:'|t }} {{ student_name }}</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>{{ 'Naziv predmeta'|t }}</th>
+      <th>{{ 'Upisane ocene'|t }}</th>
+      <th>{{ 'Prosek ocena'|t }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for grade in grades_display %}
+      <tr>
+        <td>{{ grade.subject }}</td>
+        <td>{{ grade.grades }}</td>
+        <td>{{ grade.average }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

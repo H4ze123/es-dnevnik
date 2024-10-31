@@ -128,7 +128,8 @@ class ElekGradeEntryForm extends FormBase {
     $tip_ocene = $form_state->getValue('tip_ocene');
     
     $students_grades = $form_state->getValue( 'ucenici');
-    $test = $form_state->getValues();
+
+    // $test = $form_state->getValues();
 
     // Ovo je za debugovanje. Neka ostane.
     // var_dump($test);
