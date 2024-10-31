@@ -30,6 +30,13 @@ elek_dnevnik.grade_entry_form:
   requirements:
     _custom_access: 'elekDnevnik_grade_entry_access'
 
+elek_dnevnik.note_entry_form:
+  path: '/upisivanje-napomena'
+  defaults:
+    _form: '\Drupal\elekDnevnik\Form\ElekNoteEntryForm'
+    _title: 'Upisivanje napomena'
+  requirements:
+    _custom_access: 'elekDnevnik_note_entry_access'
 elek_dnevnik.student_grades_controller:
   path: '/ucenici-ocene'
   defaults:
