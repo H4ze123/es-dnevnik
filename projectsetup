@@ -3,6 +3,7 @@
 echo "[/] Starting..."
 
 fin up > /dev/null 2>&1
+fin restart > /dev/null 2>&1
 docker ps
 
 read -p "[?] Enter mariadb docker ID: " MID

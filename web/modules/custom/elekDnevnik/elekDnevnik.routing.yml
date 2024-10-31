@@ -37,6 +37,7 @@ elek_dnevnik.note_entry_form:
     _title: 'Upisivanje napomena'
   requirements:
     _custom_access: 'elekDnevnik_note_entry_access'
+    
 elek_dnevnik.student_grades_controller:
   path: '/ucenici-ocene'
   defaults:
