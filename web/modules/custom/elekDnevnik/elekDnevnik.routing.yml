@@ -41,8 +41,8 @@ elek_dnevnik.note_entry_form:
 elek_dnevnik.student_grades_controller:
   path: '/ucenici-ocene'
   defaults:
-    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentGradesController::gradesPage'
-    _title: 'Izvestaj za ucenika/cu'
+    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentGradesController::viewGrades'
+    _title: 'Izvestaj ocena'
   requirements:
     _custom_access: 'elekDnevnik_student_grades_access'
 
