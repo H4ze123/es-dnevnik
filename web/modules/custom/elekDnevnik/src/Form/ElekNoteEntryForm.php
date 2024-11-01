@@ -151,6 +151,6 @@ class ElekNoteEntryForm extends FormBase {
       ])
       ->execute();
 
-    \Drupal::messenger()->addMessage(t('Podaci o času i prisutnosti učenika su uspešno sačuvani.'));
+    \Drupal::messenger()->addMessage(t('Podaci o napomeni su uspešno sačuvani.'));
   }
 }

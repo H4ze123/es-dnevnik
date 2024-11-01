@@ -47,10 +47,14 @@ class ElekClassEntryForm extends FormBase {
     $current_user = \Drupal::currentUser();
     $connection = \Drupal::database();
 
-    $user_role_data = $connection->query("SELECT role FROM {user_registration} WHERE username = :username", [
+    $user_data = $connection->query("SELECT role, id FROM {user_registration} WHERE username = :username", [
       ':username' => $current_user->getAccountName()
-    ])->fetchField();
+    ])->fetchAssoc();
+    $user_role_data = $user_data['role'];
+    $prof_id = $user_data['id'];
     $roles = explode(',', $user_role_data);
+
+    $form['#prof_id'] = $prof_id;
 
     $form['naziv_predmeta'] = [
       '#type' => 'select',
@@ -179,6 +183,7 @@ class ElekClassEntryForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $connection = \Drupal::database();
     $date = $form_state->getValue('datum_upisa');
+    $prof_id = $form['#prof_id'];
 
     $connection->insert('class_entries')
       ->fields([
@@ -189,7 +194,7 @@ class ElekClassEntryForm extends FormBase {
         'ukupno_casova' => $form_state->getValue('ukupno_casova'),
         'tema' => $form_state->getValue('tema'),
         'odeljenje' => $form_state->getValue('odeljenje'),
-        'profesor_id' => \Drupal::currentUser()->id(),
+        'profesor_id' => $prof_id,
       ])
       ->execute();
 
