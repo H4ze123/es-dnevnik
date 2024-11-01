@@ -141,3 +141,16 @@ function elekDnevnik_note_entry_access(AccountInterface $account) {
   }
   return AccessResult::forbidden();
 }
+
+/**
+ * Custom access callback to restrict access to the activity entry page.
+ */
+function elekDnevnik_activity_entry_access(AccountInterface $account) {
+  if (in_array('profesor', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  elseif (in_array('administrator', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  return AccessResult::forbidden();
+}
