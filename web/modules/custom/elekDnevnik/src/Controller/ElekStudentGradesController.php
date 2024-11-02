@@ -22,20 +22,23 @@ class ElekStudentGradesController extends ControllerBase {
     }
 
     public function viewGrades() {
-        $user_id = $this->currentUser->id();
-        $roles = $this->currentUser->getRoles();
+        $current_user = \Drupal::currentUser();
+        $connection = \Drupal::database();
+
+        $user_data = $connection->query("SELECT id FROM {user_registration} WHERE username = :username", [
+            ':username' => $current_user->getAccountName()
+        ])->fetchAssoc();
+
+        $student_id = $user_data['id'];
 
         $query = Database::getConnection()->select('student_grades', 'g');
         $query->fields('g', ['naziv_predmeta', 'ocena']);
-        
-        if (in_array('Ucenik', $roles)) {
-            $query->condition('student_id', $user_id);
-        }
+        $query->condition('student_id', $student_id);
 
         $results = $query->execute()->fetchAll();
 
         if (empty($results)) {
-            \Drupal::logger('elekDnevnik')->info('Nema rezultata za korisnika ID: @user_id', ['@user_id' => $user_id]);
+            \Drupal::logger('elekDnevnik')->info('Nema rezultata za korisnika ID: @student_id', ['@student_id' => $student_id]);
         }
 
         $grades_by_subject = [];
