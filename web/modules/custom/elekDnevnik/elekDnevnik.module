@@ -167,3 +167,16 @@ function elekDnevnik_activity_entry_access(AccountInterface $account) {
   }
   return AccessResult::forbidden();
 }
+
+/**
+ * Custom access callback to restrict access to the student attendance page.
+ */
+function elekDnevnik_student_attendance_access(AccountInterface $account) {
+  if (in_array('ucenik', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  elseif (in_array('administrator', $account->getRoles())) {
+    return AccessResult::allowed();
+  }
+  return AccessResult::forbidden();
+}

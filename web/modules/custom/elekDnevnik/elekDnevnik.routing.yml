@@ -62,3 +62,11 @@ elek_dnevnik.student_activity_controller:
   requirements:
     _custom_access: 'elekDnevnik_student_activity_access'
 
+elek_dnevnik.student_attendance_controller:
+  path: '/ucenici-izostanci'
+  defaults:
+    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentAttendanceController::viewAttendance'
+    _title: 'Izvestaj izostanaka'
+  requirements:
+    _custom_access: 'elekDnevnik_student_attendance_access'
+
