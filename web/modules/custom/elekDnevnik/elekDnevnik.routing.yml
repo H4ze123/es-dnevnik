@@ -54,5 +54,11 @@ elek_dnevnik.student_grades_controller:
   requirements:
     _custom_access: 'elekDnevnik_student_grades_access'
 
-
+elek_dnevnik.student_activity_controller:
+  path: '/ucenici-aktivnosti'
+  defaults:
+    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentActivityController::viewActivity'
+    _title: 'Zakazane aktivnosti'
+  requirements:
+    _custom_access: 'elekDnevnik_student_activity_access'
 
