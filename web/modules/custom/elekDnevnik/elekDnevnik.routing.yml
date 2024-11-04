@@ -70,3 +70,10 @@ elek_dnevnik.student_attendance_controller:
   requirements:
     _custom_access: 'elekDnevnik_student_attendance_access'
 
+elek_dnevnik.student_note_controller:
+  path: '/ucenici-napomene'
+  defaults:
+    _controller: '\Drupal\elekDnevnik\Controller\ElekStudentNoteController::viewNote'
+    _title: 'Izvestaj napomena'
+  requirements:
+    _custom_access: 'elekDnevnik_student_note_access'

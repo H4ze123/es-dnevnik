@@ -130,7 +130,7 @@ function elekDnevnik_student_grades_access(AccountInterface $account) {
 }
 
 /**
- * Custom access callback to restrict access to the student grades page.
+ * Custom access callback to restrict access to the student activity page.
  */
 function elekDnevnik_student_activity_access(AccountInterface $account) {
   if (in_array('ucenik', $account->getRoles())) {
@@ -139,6 +139,31 @@ function elekDnevnik_student_activity_access(AccountInterface $account) {
   elseif (in_array('administrator', $account->getRoles())) {
     return AccessResult::allowed();
   }
+  return AccessResult::forbidden();
+}
+
+/**
+ * Custom access callback to restrict access to the student note page.
+ */
+function elekDnevnik_student_note_access(AccountInterface $account) {
+  if (in_array('administrator', $account->getRoles())) {
+      return AccessResult::allowed();
+  }
+
+  $has_professor_role = in_array('profesor', $account->getRoles());
+
+  $has_homeroom_role = false;
+  foreach ($account->getRoles() as $role) {
+      if (preg_match('/^odeljenje_/', $role)) {
+          $has_homeroom_role = true;
+          break; 
+      }
+  }
+
+  if ($has_professor_role && $has_homeroom_role) {
+      return AccessResult::allowed();
+  }
+
   return AccessResult::forbidden();
 }
 
