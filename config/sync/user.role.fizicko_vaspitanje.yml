@@ -1,0 +1,9 @@
+uuid: 792ae1d8-7275-4f02-a20a-ca54c145eddd
+langcode: en
+status: true
+dependencies: {  }
+id: fizicko_vaspitanje
+label: 'Fizicko vaspitanje'
+weight: 18
+is_admin: null
+permissions: {  }

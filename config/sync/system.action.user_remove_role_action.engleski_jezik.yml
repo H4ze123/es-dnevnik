@@ -1,0 +1,14 @@
+uuid: 47a17f5c-2661-43cd-b690-c1b7c6156a21
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engleski_jezik
+  module:
+    - user
+id: user_remove_role_action.engleski_jezik
+label: 'Remove the Engleski jezik role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: engleski_jezik

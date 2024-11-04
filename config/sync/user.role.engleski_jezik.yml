@@ -1,0 +1,9 @@
+uuid: 1a74c19d-0511-443c-987e-505a45942aec
+langcode: en
+status: true
+dependencies: {  }
+id: engleski_jezik
+label: 'Engleski jezik'
+weight: 19
+is_admin: null
+permissions: {  }

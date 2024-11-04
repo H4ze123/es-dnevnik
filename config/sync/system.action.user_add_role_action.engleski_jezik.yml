@@ -1,0 +1,14 @@
+uuid: b3d7e0a9-de2c-4b37-a2ac-21468386ee24
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engleski_jezik
+  module:
+    - user
+id: user_add_role_action.engleski_jezik
+label: 'Add the Engleski jezik role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: engleski_jezik

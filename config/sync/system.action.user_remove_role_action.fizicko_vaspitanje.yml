@@ -1,0 +1,14 @@
+uuid: 8948a3c8-3eac-4e0e-b929-c9671a8f567e
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.fizicko_vaspitanje
+  module:
+    - user
+id: user_remove_role_action.fizicko_vaspitanje
+label: 'Remove the Fizicko vaspitanje role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: fizicko_vaspitanje
