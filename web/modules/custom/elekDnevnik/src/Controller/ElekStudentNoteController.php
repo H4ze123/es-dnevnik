@@ -72,7 +72,7 @@ class ElekStudentNoteController extends ControllerBase {
             'datum_upisa' => $this->t('Datum upisa'),
             'redni_broj_casa' => $this->t('Redni broj casa'),
             'naziv_predmeta' => $this->t('Predmet'),
-            'puno_ime' => $this->t('Ime'),
+            'puno_ime' => $this->t('Ucenik'),
             'napomena' => $this->t('Napomena'), 
         ];
     
