@@ -14,10 +14,8 @@ class ElekNoteEntryForm extends FormBase {
 
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['datum_upisa'] = [
-      '#type' => 'date',
-      '#title' => t('Datum upisa'),
-      '#default_value' => date('Y-m-d'),
-      '#required' => TRUE,
+        '#type' => 'hidden',
+        '#value' => date('Y-m-d'),
     ];
 
     $selected_date = $form_state->getValue('datum_upisa') ?? date('Y-m-d');
@@ -34,78 +32,81 @@ class ElekNoteEntryForm extends FormBase {
     $connection = \Drupal::database();
 
     $user_role_data = $connection->query("SELECT role FROM {user_registration} WHERE username = :username", [
-      ':username' => $current_user->getAccountName()
+        ':username' => $current_user->getAccountName()
     ])->fetchField();
     $roles = explode(',', $user_role_data);
 
     $form['naziv_predmeta'] = [
-      '#type' => 'select',
-      '#title' => t('Naziv predmeta'),
-      '#options' => [],
-      '#required' => TRUE,
+        '#type' => 'select',
+        '#title' => t('Naziv predmeta'),
+        '#options' => [],
+        '#required' => TRUE,
     ];
 
     if (in_array('profesor', $roles)) {
       foreach ($roles as $role) {
-        if (strpos($role, 'profesor') === false) {
-          $formatted_subject = ucwords(str_replace('_', ' ', $role));
-          $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
-        }
+          if (strpos($role, 'odeljenje_') === 0) {
+              continue;
+          }
+          if (strpos($role, '_') !== false) {
+              $formatted_subject = ucwords(str_replace('_', ' ', $role));
+              $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
+          }
       }
     }
 
     $form['odeljenje'] = [
-      '#type' => 'select',
-      '#title' => t('Odeljenje'),
-      '#options' => [
-        'I1' => t('I1'),
-        'I2' => t('I2'),
-        'I3' => t('I3'),
-        'IV1' => t('IV1'),
-        'IV2' => t('IV2'),
-        'IV3' => t('IV3'),
-      ],
-      '#required' => TRUE,
-      '#ajax' => [
-        'callback' => '::updateStudents',
-        'wrapper' => 'students-container',
-      ],
+        '#type' => 'select',
+        '#title' => t('Odeljenje'),
+        '#options' => [
+            'I1' => t('I1'),
+            'I2' => t('I2'),
+            'I3' => t('I3'),
+            'IV1' => t('IV1'),
+            'IV2' => t('IV2'),
+            'IV3' => t('IV3'),
+        ],
+        '#required' => TRUE,
+        '#ajax' => [
+            'callback' => '::updateStudents',
+            'wrapper' => 'students-container',
+        ],
     ];
     
     $form['students_container'] = [
-      '#type' => 'container',
-      '#attributes' => ['id' => 'students-container'],
+        '#type' => 'container',
+        '#attributes' => ['id' => 'students-container'],
     ];
 
     $selected_class = $form_state->getValue('odeljenje');
     $students = $this->loadStudentsByClass($selected_class);
     
     if (!empty($students)) {
-      $form['students_container']['ucenici'] = [
-        '#type' => 'select',
-        '#title' => t('Učenici'),
-        '#options' => array_reduce($students, function ($carry, $student) {
-          $carry[$student->id] = $student->first_name . ' ' . $student->last_name;
-          return $carry;
-        }, []),
-        '#required' => TRUE,
-      ];
+        $form['students_container']['ucenici'] = [
+            '#type' => 'select',
+            '#title' => t('Učenici'),
+            '#options' => array_reduce($students, function ($carry, $student) {
+                $carry[$student->id] = $student->first_name . ' ' . $student->last_name;
+                return $carry;
+            }, []),
+            '#required' => TRUE,
+        ];
     } else {
-      $form['students_container']['ucenici'] = [
-        '#markup' => t('Nema učenika u odeljenju @odeljenje.', ['@odeljenje' => $selected_class]),
-      ];
+        $form['students_container']['ucenici'] = [
+            '#markup' => t('Nema učenika u odeljenju @odeljenje.', ['@odeljenje' => $selected_class]),
+        ];
     }
 
     $form['napomena'] = [
-      '#type' => 'textarea',
-      '#title' => t('Napomena'),
-      '#required' => TRUE,
+        '#type' => 'textarea',
+        '#title' => t('Napomena'),
+        '#required' => TRUE,
     ];
 
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Snimi'),
+        '#type' => 'submit',
+        '#value' => t('Snimi'),
     ];
 
     return $form;

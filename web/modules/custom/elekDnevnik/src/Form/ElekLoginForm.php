@@ -56,7 +56,6 @@ class ElekLoginForm extends FormBase {
         user_login_finalize($user);
         $this->messenger()->addStatus($this->t('Login successful.'));
 
-        // Redirect after login
         $form_state->setRedirect('<front>');  
       }
       else {

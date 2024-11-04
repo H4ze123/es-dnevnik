@@ -55,10 +55,13 @@ class ElekActivityEntryForm extends FormBase {
 
     if (in_array('profesor', $roles)) {
       foreach ($roles as $role) {
-        if (strpos($role, 'profesor') === false) {
-          $formatted_subject = ucwords(str_replace('_', ' ', $role));
-          $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
-        }
+          if (strpos($role, 'odeljenje_') === 0) {
+              continue;
+          }
+          if (strpos($role, '_') !== false) {
+              $formatted_subject = ucwords(str_replace('_', ' ', $role));
+              $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
+          }
       }
     }
 
