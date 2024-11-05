@@ -53,13 +53,10 @@ class ElekGradeEntryForm extends FormBase {
 
     if (in_array('profesor', $roles)) {
       foreach ($roles as $role) {
-          if (strpos($role, 'odeljenje_') === 0) {
-              continue;
-          }
-          if (strpos($role, '_') !== false) {
-              $formatted_subject = ucwords(str_replace('_', ' ', $role));
-              $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
-          }
+        if ($role !== 'profesor' && strpos($role, 'odeljenje') === false) {
+          $formatted_subject = ucwords(str_replace('_', ' ', $role));
+          $form['naziv_predmeta']['#options'][$role] = t($formatted_subject);
+        }
       }
     }
 
@@ -69,6 +66,7 @@ class ElekGradeEntryForm extends FormBase {
       '#options' => [
         'kontrolni' => t('Kontrolni'),
         'odgovaranje' => t('Odgovaranje'),
+        'prezentacija' => t('Prezentacija'),
       ],
       '#required' => TRUE,
     ];
